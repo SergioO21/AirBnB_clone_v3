@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ Main App """
 
 from api.v1.views import app_views
