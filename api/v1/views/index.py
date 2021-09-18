@@ -5,6 +5,9 @@ from flask import jsonify
 from api.v1.views import app_views
 from models import storage
 
+classes = {"Amenity": Amenity, "City": City,
+           "Place": Place, "Review": Review, "State": State, "User": User}
+
 
 @app_views.route("/status", strict_slashes=False)
 def status():
@@ -15,7 +18,7 @@ def status():
 def stats():
     """ Retrieves the number of each element by type"""
     new_dict2 = {}
-    for key, value in classes.item:
+    for key, value in classes.items:
         number = storage.count(value)
         new_dict2[key] = number
     return jsonify(new_dict2)
