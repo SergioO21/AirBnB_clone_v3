@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" Main App """
+"""
+Main App
+"""
 
 from api.v1.views import app_views
 from flask import Flask
@@ -11,7 +13,9 @@ app.register_blueprint(app_views)
 
 @app.teardown_appcontext
 def teardown_db(self):
-    """ Remove the current SQLAlchemy Session """
+    """
+    Remove the current SQLAlchemy Session
+    """
     storage.close()
 
 

@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-""" Index module """
+"""
+Index module
+"""
 
 from flask import jsonify
 from api.v1.views import app_views
@@ -12,13 +14,17 @@ classes = {"amenities": "Amenity", "cities": "City",
 
 @app_views.route("/status", strict_slashes=False)
 def status():
-    """ Route that returns a json response"""
+    """
+    Route that returns a json response
+    """
     return jsonify({"status": "OK"})
 
 
 @app_views.route("/stats", strict_slashes=False)
 def stats():
-    """ Retrieves the number of each element by type"""
+    """
+    Retrieves the number of each element by type
+    """
     new_dict2 = {}
     for key, value in classes.items():
         number = storage.count(value)
