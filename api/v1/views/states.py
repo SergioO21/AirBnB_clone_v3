@@ -11,7 +11,6 @@ from models.state import State
 @app_views.route("/states", methods=["GET"], strict_slashes=False)
 def state_objs():
     """ Retrieves the list of all State objects """
-    print("Me meti")
     all_states = storage.all(State).values()
     states_list = []
 
@@ -51,7 +50,7 @@ def post_state():
     if not body:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
 
-    elif not body["name"]:
+    elif "name" not in body:
         return make_response(jsonify({"error": "Missing name"}), 400)
 
     new_state = State(**body)
