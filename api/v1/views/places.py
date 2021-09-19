@@ -6,7 +6,6 @@ from flask import abort, jsonify, make_response, request
 from api.v1.views import app_views
 from models.city import City
 from models.place import Place
-from models.state import State
 from models import storage
 
 
@@ -18,7 +17,7 @@ def place_city_objs(city_id):
     if not city:
         abort(404)
 
-    all_places = cities.places
+    all_places = city.places
     places_list = []
 
     for place in all_places:
@@ -38,7 +37,7 @@ def place_obj_id(place_id):
 @app_views.route("/places/<place_id>",
                  methods=["DELETE"], strict_slashes=False)
 def delete_place(place_id):
-    """ Deletes a City object """
+    """ Deletes a Place object """
     place = storage.get(Place, place_id)
 
     if not place:
@@ -55,7 +54,7 @@ def delete_place(place_id):
 def post_place(city_id):
     """ Creates a City """
     city = storage.get(City, city_id)
-    if not state:
+    if not city:
         abort(404)
 
     body = request.get_json()
@@ -74,7 +73,7 @@ def post_place(city_id):
 
 @app_views.route("/places/<place_id>", methods=["PUT"])
 def put_place(place_id):
-    """ Updates a City object """
+    """ Updates a Place object """
     place = storage.get(Place, place_id)
     if not place:
         abort(404)
