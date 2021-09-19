@@ -5,12 +5,12 @@ from flask import abort, jsonify, make_response, request
 
 from api.v1.views import app_views
 from models import storage
-from models.state import User
+from models.user import User
 
 
 @app_views.route("/users", methods=["GET"], strict_slashes=False)
 def users_objs():
-    """ Retrieves the list of all State objects """
+    """ Retrieves the list of all User objects """
     all_users = storage.all(User).values()
     users_list = []
 
@@ -20,8 +20,8 @@ def users_objs():
 
 
 @app_views.route("/users/<user_id>", methods=["GET"], strict_slashes=False)
-def user_obj(state_id):
-    """ Retrieves a State object """
+def user_obj(user_id):
+    """ Retrieves a User object """
     user = storage.get(User, user_id)
     if not user:
         abort(404)
@@ -30,8 +30,8 @@ def user_obj(state_id):
 
 @app_views.route("/users/<user_id>",
                  methods=["DELETE"], strict_slashes=False)
-def delete_user(state_id):
-    """ Deletes a State object """
+def delete_user(user_id):
+    """ Deletes a User object """
     user = storage.get(User, user_id)
 
     if not user:
@@ -45,24 +45,24 @@ def delete_user(state_id):
 
 @app_views.route("/users", methods=["POST"], strict_slashes=False)
 def post_user():
-    """ Creates a State """
+    """ Creates a User """
     body = request.get_json()
     if not body:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
-    if body.get('email') is None:
-        return make_response("Missing email", 400)
-    elif body.get('password') is None:
-        return make_response("Missing password", 400)
+    if 'email' not in body:
+        return make_response(jsonify({"Missing email"}), 400)
+    elif 'password' not in body:
+        return make_response(jsonify({"Missing password"}), 400)
 
-    new_state = State(**body)
-    new_state.save()
+    new_user = User(**body)
+    new_user.save()
 
-    return make_response(jsonify(new_state.to_dict()), 201)
+    return make_response(jsonify(new_user.to_dict()), 201)
 
 
 @app_views.route("/users/<user_id>", methods=["PUT"])
 def put_user(user_id):
-    """ Updates a State object """
+    """ Updates a User object """
     user = storage.get(User, user_id)
     if not user:
         abort(404)
