@@ -92,7 +92,7 @@ def put_review(review_id):
 
     for key, value in review_body.items():
         if key not in ["id", "user_id", "place_id",
-                       "created_at", "updated_at"]:
+                       q"created_at", "updated_at"]:
             setattr(review, key, value)
     review.save()
 
