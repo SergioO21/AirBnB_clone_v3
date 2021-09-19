@@ -12,7 +12,7 @@ app.register_blueprint(app_views)
 
 
 @app.teardown_appcontext
-def teardown_db(self):
+def teardown_db(error):
     """
     Remove the current SQLAlchemy Session
     """
@@ -21,6 +21,7 @@ def teardown_db(self):
 
 @app.errorhandler(404)
 def not_found(error):
+    """ Error handler """
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
