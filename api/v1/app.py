@@ -32,4 +32,10 @@ def not_found(error):
 
 
 if __name__ == '__main__':
+
+    if not HBNB_API_HOST:
+        HBNB_API_HOST = "0.0.0.0"
+    if not HBNB_API_PORT:
+        HBNB_API_PORT = "5000"
+
     app.run(threaded=True, host=HBNB_API_HOST, port=HBNB_API_PORT)
