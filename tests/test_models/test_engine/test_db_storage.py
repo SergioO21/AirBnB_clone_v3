@@ -90,12 +90,15 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count(self):
         """ test that the count method has the correct output"""
-        all_obj = models.storage()
-        all_state = models.storage(State)
-        self.inst = BaseModel(name="Hola")
-        self.inst.save()
-        all_obj1 = models.storage()
-        self.assertNotEqual(all_obj, all_obj1)
+        dic = {"name": "Vecindad"}
+        state = State(**dic)
+        models.storage.new(state)
+        dic = {"name": "Mexico", "state_id": state.id}
+        city = City(**dic)
+        models.storage.new(city)
+        models.storage.save()
+        c = models.storage.count()
+        self.assertEqual(len(models.storage.all()), c)
 
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get(self):
