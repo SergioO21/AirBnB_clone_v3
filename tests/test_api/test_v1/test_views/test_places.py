@@ -554,27 +554,27 @@ class SearchPlacesApiTest(unittest.TestCase):
         pass
 
     def testSearchWithStates(self):
-        data = { "states": [] }
+        data = {"states": []}
         self.__testSearch(data)
 
     def testSearchWithCities(self):
-        data = { "cities": [] }
+        data = {"cities": []}
         self.__testSearch(data)
 
     def testSearchWithAmenities(self):
-        data = { "amenities": [] }
+        data = {"amenities": []}
         self.__testSearch(data)
 
     def testSearchWithEmptyStates(self):
-        data = { "states": [] }
+        data = {"states": []}
         self.__testSearchWithEmptyData(data)
 
     def testSearchWithEmptyCities(self):
-        data = { "cities": [] }
+        data = {"cities": []}
         self.__testSearchWithEmptyData(data)
 
     def testSearchWithEmptyAmenities(self):
-        data = { "amenities": [] }
+        data = {"amenities": []}
         self.__testSearchWithEmptyData(data)
 
     def testNotAJson(self):
