@@ -5,11 +5,13 @@ Main App
 
 from api.v1.views import app_views
 from flask import Flask, make_response, jsonify
+from flask_cors import CORS
 from models import storage
+
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
-
+CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 
 @app.teardown_appcontext
 def teardown_db(error):
