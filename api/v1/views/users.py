@@ -50,9 +50,9 @@ def post_user():
     if not body:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
     if 'email' not in body:
-        return make_response(jsonify({"Missing email"}), 400)
-    elif 'password' not in body:
-        return make_response(jsonify({"Missing password"}), 400)
+        return make_response(jsonify({"error": "Missing email"}), 400)
+    if 'password' not in body:
+        return make_response(jsonify({"error": "Missing password"}), 400)
 
     new_user = User(**body)
     new_user.save()
