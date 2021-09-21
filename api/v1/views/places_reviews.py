@@ -76,7 +76,7 @@ def post_review(place_id):
     if not user:
         abort(404)
 
-    body["review_id"] = place_id
+    body["place_id"] = place_id
     new_review = Review(**body)
     new_review.save()
 
