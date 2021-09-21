@@ -6,6 +6,7 @@ from flask import abort, jsonify, make_response, request
 from api.v1.views import app_views
 from models.city import City
 from models.place import Place
+from models.user import User
 from models import storage
 
 
@@ -14,14 +15,17 @@ from models import storage
 def place_city_objs(city_id):
     """ Retrieves the list of all City places objects """
     city = storage.get(City, city_id)
+    print(city)
     if not city:
         abort(404)
 
     all_places = city.places
+    print(all_places)
     places_list = []
 
     for place in all_places:
         places_list.append(place.to_dict())
+    print(places_list)
     return jsonify(places_list)
 
 
@@ -61,7 +65,14 @@ def post_place(city_id):
     if not body:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
 
-    elif "name" not in body:
+    if "user_id" not in body:
+        return make_response(jsonify({"error": "Missing user_id"}), 400)
+
+    user = storage.get(User, body.get("user_id"))
+    if not user:
+        abort(404)
+
+    if "name" not in body:
         return make_response(jsonify({"error": "Missing name"}), 400)
 
     body["city_id"] = city_id
