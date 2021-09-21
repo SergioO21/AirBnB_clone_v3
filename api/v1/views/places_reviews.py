@@ -62,10 +62,14 @@ def post_review(place_id):
     if not body:
         return make_response(jsonify({"error": "Not a JSON"}), 400)
 
-    elif "user_id" not in body:
+    if "user_id" not in body:
         return make_response(jsonify({"error": "Missing user_id"}), 400)
 
-    elif "text" not in body:
+    user = storage.get(User, body.get("user_id"))
+    if not user:
+        abort(404)
+
+    if "text" not in body:
         return make_response(jsonify({"error": "Missing text"}), 400)
 
     user = storage.get(User, body.get("user_id"))
